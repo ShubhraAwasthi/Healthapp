@@ -10,22 +10,28 @@
     <link rel="stylesheet" href="styles.css">
     <!-- AOS lib -->
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
-    <title>Hello, world!</title>
+    <link rel = "icon" href = "images/icon.png" 
+        type = "image/x-icon">
+    <title>Cura</title>
   </head>
   <body>
     <div class="head-wrapper">
       <h1 class="heading">Cura: Your health matters first !</h1>
     </div>
     <div class="hospitals">
-      <label for="mylist">Choose your state to access information related to hospitals and bed in your state: </label>
+      <label for="mylist">Choose your state to access information related to hospitals and beds in your state: </label>
       <select id="mylist" onchange="myFunction()" class="form-control selectlist">
       </select>
+      <div class="stateintro" id="stateintro"></div>
     </div>
+
+    
     <div class="cards-list" id="cards-list">
     </div>
     
-
-
+  <footer>
+      <p class="copyright"> Copyright © 2022</p>
+  </footer>
     <!-- Jquery script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     
@@ -50,6 +56,7 @@
           })
           const arr=[...options];
           arr.sort();
+          dropdown+=`<option>Select state</option>`;
           arr.forEach(function(value)
           {
              dropdown+=`<option>${value}</option>`;
@@ -73,21 +80,26 @@
         input = document.getElementById("mylist");
         console.log(input.value);
         cardsbody="";
+        intro="";
         statedata.forEach(function(state){
           
           if(state.state==input.value)
-          if(state.state.toUpperCase().indexOf(input.value.toUpperCase()) < -1)
           {
-            `<div class="hospital-card">
-              <ul>
-              <h4 class="card-heading">${state.ruralHospitals }</h4>
-              <li class="card-subheading">City: ${state.ruralBeds}</li>
-              <li class="card-subheading">Hospital beds: ${state.urbanHospitals}</li>
-              <li class="card-subheading">Admission Capacity: ${state.urbanBeds}</li>
-              </ul>
-              </div>`
+            console.log(state);
+            intro+=`<div class="intro" style="font-weight:bold; font-size:1.3rem">In ${state.state}, according to data collected in 2017, there are:
+            <ul>
+            <li>${state.ruralHospitals} Rural Hospitals</li>
+            <li>${state.ruralBeds} Rural Hospital beds</li>
+            <li>${state.urbanHospitals} Urban Hospitals</li>
+            <li>${state.urbanBeds} Urban Hospital beds</li>
+            </ul>
+            Prominent hospital and medical colleges in ${state.state} are: 
+            </div>`
           }
+          
         })
+
+        $("#stateintro").html(intro);
         collegedata.forEach(function(college){
           if(college.state==input.value)
           {
