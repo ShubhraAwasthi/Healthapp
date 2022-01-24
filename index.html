@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <!-- AOS lib -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css"/>
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="carousel_div">
+      <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./images/healthcare.jpg" class="d-block image" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./images/tech.jpg" class="d-block image" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./images/mask.jpg" class="d-block image" alt="...">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+      </div>
+    </div>
+
+    <div class="hospitals">
+        <select id="mylist" onchange="myFunction()" class="form-control selectlist">
+        </select>
+        <div class="cards-list" id="cards-list">
+
+        </div>
+    </div>
+
+
+    <!-- Jquery script -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <script>
+      var collegedata;
+      var statedata;
+
+      // fetching medical colleges list
+       fetch('https://api.rootnet.in/covid19-in/hospitals/medical-colleges')
+      .then(function (response) {
+        return response.json() ;
+    })
+      .then(function(resp)
+      {
+        collegedata=(resp.data.medicalColleges);
+        console.log(collegedata);
+        dropdown="";
+        var options=new Set();
+        collegedata.forEach(function(college)
+          {
+            options.add(college.state);
+          })
+          const arr=[...options];
+          arr.sort();
+          arr.forEach(function(value)
+          {
+             dropdown+=`<option>${value}</option>`;
+          })
+          $("#mylist").html(dropdown);
+      })
+      
+      
+      fetch('https://api.rootnet.in/covid19-in/hospitals/beds')
+      .then(function (response) {
+        return response.json() ;
+      })
+      .then(function(resp)
+      {
+        console.log(resp.data.regional);
+        statedata=resp.data.regional;
+      })
+
+      function myFunction() 
+      {
+        input = document.getElementById("mylist");
+        console.log(input.value);
+        cardsbody="";
+        statedata.forEach(function(state){
+          
+          if(state.state==input.value)
+          if(state.state.toUpperCase().indexOf(input.value.toUpperCase()) < -1)
+          {
+            `<div class="hospital-card">
+              <ul>
+              <h4 class="card-heading">${state.ruralHospitals }</h4>
+              <li class="card-subheading">City: ${state.ruralBeds}</li>
+              <li class="card-subheading">Hospital beds: ${state.urbanHospitals}</li>
+              <li class="card-subheading">Admission Capacity: ${state.urbanBeds}</li>
+              </ul>
+              </div>`
+          }
+        })
+        collegedata.forEach(function(college){
+          if(college.state==input.value)
+          {
+             cardsbody+=`<div class="hospital-card">
+              <ul>
+              <h4 class="card-heading">${college.name}</h4>
+              <li class="card-subheading">City: ${college.city}</li>
+              <li class="card-subheading">Hospital beds: ${college.hospitalbeds}</li>
+              <li class="card-subheading">Admission Capacity: ${college.admissionCapacity}</li>
+              <li class="card-subheading">Ownership: ${college.ownership}</li>
+              </ul>
+              </div>`
+          }
+        })
+        console.log(cardsbody);
+        $("#cards-list").html(cardsbody);
+      }
+    </script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        offset: 400,
+        duration: 1000,
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>
