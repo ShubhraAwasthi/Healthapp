@@ -112,8 +112,8 @@
               <ul>
               <h4 class="card-heading">${college.name}</h4>
               <li class="card-subheading">City: ${college.city}</li>
-              <li class="card-subheading">Hospital beds: ${college.hospitalbeds}</li>
-              <li class="card-subheading">Admission Capacity: ${college.admissionCapacity}</li>
+              <li class="card-subheading">Hospital beds: ${college.hospitalbeds=="undefined"?"Data unavailable":college.hospitalbeds}</li>
+              <li class="card-subheading">Admission Capacity: ${college.admissionCapacity=="undefined"?"Data unavailable":college.admissionCapacity}</li>
               <li class="card-subheading">Ownership: ${college.ownership}</li>
               </ul>
               </div>`
