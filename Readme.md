@@ -2,7 +2,7 @@
 
 A Web Application for finding hospitals and medical colleges in your state equipped with a Triage Chatbot which can help in deciding the urgency of medical care you may need on the basis of symptoms.
 
-**Website URL**: https://shubhrahealthapp.z29.web.core.windows.net/ 
+**Website URL**: https://thankful-desert-05555d500.1.azurestaticapps.net/
 
 ## Need and motivation behind this project:
 
