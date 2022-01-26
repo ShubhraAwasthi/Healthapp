@@ -2,8 +2,8 @@
 
 A Web Application for finding hospitals and medical colleges in your state equipped with a Triage Chatbot which can help in deciding the urgency of medical care you may need on the basis of symptoms.
 
-**Website URL**: https://thankful-desert-05555d500.1.azurestaticapps.net/
-**Video demo**: https://drive.google.com/file/d/1jmyY9XpGkQWIl5m7j0I5GloHK4Q-LINc/view?usp=sharing
+**Website URL**: https://thankful-desert-05555d500.1.azurestaticapps.net/     \
+**Video demo**: https://drive.google.com/file/d/1jmyY9XpGkQWIl5m7j0I5GloHK4Q-LINc/view?usp=sharing 
 
 ## Need and motivation behind this project:
 
